@@ -8,21 +8,86 @@
       name="description"
       content="Psst lets anyone drop you an anonymous message. Ask who sent it, and if they say yes, keep talking."
     />
+    <meta name="theme-color" content="#fdf4e3" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!--
-      One variable font covering the whole 400-900 range, instead of seven
-      static weights plus an italic that nothing in the app ever used. Asking
-      for a RANGE (400..900) is what makes Google serve the variable file:
-      listing weights individually returns a separate file for each.
-    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400..900&display=swap"
+      id="psst-font"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400..900&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400..900&display=swap"
+      />
+    </noscript>
+
+    <style>
+      #psst-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fdf4e3;
+        font-family: "Exo 2", ui-sans-serif, system-ui, sans-serif;
+      }
+      #psst-splash b {
+        display: inline-block;
+        border: 3px solid #121212;
+        background: #c9f227;
+        box-shadow: 4px 4px 0 #121212;
+        padding: 10px 18px;
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: #121212;
+        animation: psst-pulse 1s ease-in-out infinite alternate;
+      }
+      #psst-splash b span {
+        color: #ff4d8d;
+      }
+      @keyframes psst-pulse {
+        from {
+          transform: translate(0, 0);
+          box-shadow: 4px 4px 0 #121212;
+        }
+        to {
+          transform: translate(2px, 2px);
+          box-shadow: 2px 2px 0 #121212;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #psst-splash b {
+          animation: none;
+        }
+      }
+      #root:not(:empty) ~ #psst-splash {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="psst-splash" aria-hidden="true"><b>psst<span>.</span></b></div>
+    <script>
+      (function () {
+        var f = document.getElementById("psst-font");
+        if (!f) return;
+        var apply = function () {
+          if (f.media !== "all") f.media = "all";
+        };
+        if (f.sheet) apply();
+        f.addEventListener("load", apply);
+        addEventListener("load", apply);
+        setTimeout(apply, 3000);
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
