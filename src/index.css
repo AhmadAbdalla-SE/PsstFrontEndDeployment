@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/*
+  The whole Psst look lives in these tokens. Tailwind v4 turns each one into a
+  utility class, so --color-psst-pink becomes bg-psst-pink / text-psst-pink,
+  and --shadow-brutal becomes shadow-brutal.
+
+  The style is neubrutalism, taken from The UX Review:
+  thick black borders, hard offset shadows that never blur, loud flat colour.
+*/
+@theme {
+  --font-display: "Exo 2", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #121212;
+  --color-paper: #fdf4e3;
+  --color-paper-dim: #f2e7d0;
+
+  --color-psst-pink: #ff4d8d;
+  --color-psst-lime: #c9f227;
+  --color-psst-blue: #4d7cff;
+  --color-psst-violet: #a569ff;
+  --color-psst-amber: #ffc83d;
+  --color-psst-mint: #46e0b0;
+
+  --shadow-brutal-sm: 2px 2px 0 var(--color-ink);
+  --shadow-brutal: 4px 4px 0 var(--color-ink);
+  --shadow-brutal-lg: 8px 8px 0 var(--color-ink);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    /* Faint grid, so the flat colour blocks have something to sit on. */
+    background-image:
+      linear-gradient(to right, rgba(18, 18, 18, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(18, 18, 18, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Every focusable thing gets the same loud ring - no soft browser default. */
+  :focus-visible {
+    outline: 3px solid var(--color-psst-blue);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /*
+    The signature interaction: the element slides into its own shadow, so the
+    shadow collapses and it reads as a sticker being pressed down.
+  */
+  .press {
+    transition:
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out;
+  }
+
+  .press:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-brutal-sm);
+  }
+
+  .press:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+
+  .press-lg {
+    transition:
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out;
+  }
+
+  .press-lg:hover {
+    transform: translate(4px, 4px);
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .press-lg:active {
+    transform: translate(8px, 8px);
+    box-shadow: none;
+  }
+}
