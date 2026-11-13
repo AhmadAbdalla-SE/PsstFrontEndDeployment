@@ -1,11 +1,15 @@
 import { API_BASE_URL } from "@/api/client";
 
+const ORIGIN = String(API_BASE_URL).replace(/\/+$/, "");
+
 export const assetUrl = (path) => {
   if (!path) return null;
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  if (/^https?:\/\//i.test(path)) return path;
 
-  const normalised = path.replace(/\\/g, "/").replace(/^\/+/, "");
-  return `${API_BASE_URL}/${normalised}`;
+  const normalised = String(path).replace(/\\/g, "/").replace(/^\/+/, "");
+  if (!normalised) return null;
+
+  return `${ORIGIN}/${normalised}`;
 };
 
 export const initialsOf = (name = "") =>
