@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink, X } from "lucide-react";
+import AssetImage from "@/components/ui/AssetImage";
 import { cn } from "@/lib/cn";
 
 export default function Lightbox({ images = [], index, onClose, onIndexChange }) {
@@ -98,9 +99,10 @@ export default function Lightbox({ images = [], index, onClose, onIndexChange })
         </button>
       )}
 
-      <img
+      <AssetImage
         src={source}
         alt={`Attachment ${index + 1}`}
+        loading="eager"
         onClick={(event) => event.stopPropagation()}
         className={cn(
           "relative max-h-[82vh] max-w-full border-3 border-ink bg-paper object-contain shadow-brutal-lg",

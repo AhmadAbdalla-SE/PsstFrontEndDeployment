@@ -9,7 +9,7 @@ import {
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000";
 
-const THROUGH_NGROK = /\bngrok[\w-]*\.(dev|io|app)$/i.test(
+export const THROUGH_NGROK = /\bngrok[\w-]*\.(dev|io|app)$/i.test(
   (() => {
     try {
       return new URL(API_BASE_URL).hostname;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AssetImage from "@/components/ui/AssetImage";
 import Lightbox from "@/components/ui/Lightbox";
 import { assetUrl } from "@/lib/assets";
 import { cn } from "@/lib/cn";
@@ -24,10 +25,9 @@ export default function AttachmentGrid({ attachments = [], className }) {
             aria-label={`Open image ${index + 1} of ${urls.length}`}
             className="press block overflow-hidden border-3 border-ink shadow-brutal-sm"
           >
-            <img
+            <AssetImage
               src={url}
               alt=""
-              loading="lazy"
               className={cn(
                 "w-full object-cover",
                 single ? "aspect-[4/3] max-h-72" : "aspect-square h-24"

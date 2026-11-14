@@ -1,3 +1,4 @@
+import AssetImage from "@/components/ui/AssetImage";
 import { assetUrl, initialsOf } from "@/lib/assets";
 import { cn } from "@/lib/cn";
 
@@ -13,7 +14,7 @@ export default function Avatar({ name, image, size = 36, className }) {
       )}
     >
       {source ? (
-        <img
+        <AssetImage
           src={source}
           alt={name ? `${name}'s avatar` : "Avatar"}
           className="h-full w-full object-cover"
